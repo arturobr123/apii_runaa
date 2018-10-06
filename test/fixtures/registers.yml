@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  day: one
+  entry: 2018-10-06 14:25:39
+  exit: 2018-10-06 14:25:39
+
+two:
+  user: two
+  day: two
+  entry: 2018-10-06 14:25:39
+  exit: 2018-10-06 14:25:39
