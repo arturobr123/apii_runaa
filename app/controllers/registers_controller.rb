@@ -1,13 +1,15 @@
 class RegistersController < ApplicationController
   before_action :set_register, only: [:show, :update, :destroy]
 
-  before_action :authenticate_user,  only: [:create,:update]
-  before_action :authorize_as_admin, only: [:index, :destroy]
+  before_action :authenticate_user,  only: [:create,:update, :index] #token auth
+  before_action :authorize_as_admin, only: [:destroy]
   before_action :authorize,          only: [:update]
 
   # GET /registers
   def index
-    @registers = Register.all
+
+    @registers = Register.all if current_user.is_admin?
+    @registers = current_user.registers if !current_user.is_admin?
 
     render json: @registers
   end
@@ -53,6 +55,8 @@ class RegistersController < ApplicationController
       params.require(:register).permit(:user_id, :day_id, :entry, :exit)
     end
 
+    #authorize if is admin they can update whatever register
+    #authorize if user_id of register is equal to current_user.id
     def authorize
       return true if current_user.is_admin?
       return_unauthorized unless @register.user_id == current_user.id

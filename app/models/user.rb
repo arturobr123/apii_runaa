@@ -7,9 +7,6 @@ class User < ApplicationRecord
   validates_length_of       :password, maximum: 72, minimum: 8, allow_nil: true, allow_blank: false
   validates_confirmation_of :password, allow_nil: true, allow_blank: false
 
-  before_validation {
-    (self.email = self.email.to_s.downcase) && (self.username = self.username.to_s.downcase)
-  }
 
   # Make sure email and username are present and unique.
   validates_presence_of     :email
@@ -17,6 +14,7 @@ class User < ApplicationRecord
   validates_uniqueness_of   :email
   validates_uniqueness_of   :username
 
+  #relations
   has_many :registers, dependent: :destroy
 
   # This method gives us a simple call to check if a user has permission to modify.
@@ -30,6 +28,3 @@ class User < ApplicationRecord
   end
 
 end
-
-
-#validates_uniqueness_of :user_id, :scope => :friend_id

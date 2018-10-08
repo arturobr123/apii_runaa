@@ -1,9 +1,8 @@
 class ApplicationController < ActionController::API
 
-  # Include Knock within your application.
+  #this is for tokens
   include Knock::Authenticable
 
-  
   protected
   # Method for checking if current_user is admin or not.
   def authorize_as_admin

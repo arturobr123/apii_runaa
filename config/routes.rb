@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
+  #days actions
+  resources :days
+
+  #register actions
   resources :registers
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   # Home controller routes.
   root   'home#index'
@@ -13,7 +16,7 @@ Rails.application.routes.draw do
   get    '/users'          => 'users#index'
   get    '/users/current'  => 'users#current'
   post   '/users/create'   => 'users#create'
-  patch  '/user/:id'       => 'users#update'
-  delete '/user/:id'       => 'users#destroy'
+  put  '/users/:id'       => 'users#update'
+  delete '/users/:id'       => 'users#destroy'
 
 end

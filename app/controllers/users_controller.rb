@@ -1,17 +1,19 @@
 class UsersController < ApplicationController
 
-  # Use Knock to make sure the current_user is authenticated before completing request.
   before_action :authenticate_user,  only: [:index, :current, :update]
-  before_action :authorize_as_admin, only: [:destroy]
+  before_action :authorize_as_admin, only: [:destroy, :index]
   before_action :authorize,          only: [:update]
 
-  # Should work if the current_user is authenticated.
+  # Should work if the current_user is authenticated and is admin.
   def index
-    render json: {status: 200, msg: 'Logged-in'}
+    @users = User.all
+
+    render json: @users
   end
 
-  #obtiene el usuario actual dependiendo el token que mandes
+  #get user with token
   def current
+    #puts request.headers["Authorization"]
     current_user.update!(last_login: Time.now)
     render json: current_user
   end
@@ -22,6 +24,8 @@ class UsersController < ApplicationController
     user = User.new(user_params)
     if user.save
       render json: {status: 200, msg: 'User was created.'}
+    else
+      render json: {status: 404, msg: 'Error.'}
     end
   end
 
@@ -44,7 +48,7 @@ class UsersController < ApplicationController
 
   ###############################
   private
-  # Setting up strict parameters for when we add account creation.
+  # params
   def user_params
     params.require(:user).permit(:username, :email, :password, :password_confirmation, :last_login, :role)
   end
