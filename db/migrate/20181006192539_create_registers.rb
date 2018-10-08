@@ -8,6 +8,6 @@ class CreateRegisters < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
-    add_index :registers, [:user, :day], unique: true
+    #add_index :registers, [:user, :day], unique: true
   end
 end
