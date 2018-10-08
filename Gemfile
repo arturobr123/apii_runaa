@@ -47,6 +47,7 @@ group :development do
   gem 'sqlite3'
 end
 
+#Heroku postgresql
 group :production do
   gem 'pg'
   gem "activerecord-postgresql-adapter"

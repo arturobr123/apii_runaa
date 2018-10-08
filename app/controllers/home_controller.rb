@@ -5,7 +5,7 @@ class HomeController < ApplicationController
 
   # Public method
   def index
-    render json: { service: 'auth-api', status: 200 }
+    render json: { service: 'API :) RUNA', status: 200 }
   end
 
   # Authorized only method
